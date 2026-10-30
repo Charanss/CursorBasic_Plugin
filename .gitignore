@@ -1,0 +1,9 @@
+﻿# OS / editor
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+*.pem
+credentials*
