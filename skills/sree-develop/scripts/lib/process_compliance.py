@@ -101,3 +101,10 @@ def parse_ticket_key(text: str) -> str | None:
 
     match = re.search(r"\b([A-Z][A-Z0-9]+-\d+)\b", text)
     return match.group(1) if match else None
+
+
+def parse_ship_intent(text: str) -> bool:
+    """True when user includes the Ship keyword (e.g. 'Sree-develop AOS-5342 Ship')."""
+    import re
+
+    return bool(re.search(r"\bship\b", text, re.IGNORECASE))

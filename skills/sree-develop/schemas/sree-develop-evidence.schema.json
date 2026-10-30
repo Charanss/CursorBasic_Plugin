@@ -9,8 +9,25 @@
     "schema_version": { "type": "string", "const": "1.0" },
     "product": { "type": "string", "const": "sree-develop" },
     "status": { "type": "string", "enum": ["partial", "complete"] },
-    "ship_profile": { "type": "string" },
+    "ship_profile": { "type": "string", "enum": ["full", "implement_only"] },
     "execution_mode": { "type": "string", "enum": ["completely_autonomous", "guided"] },
+    "intent": {
+      "type": "object",
+      "properties": {
+        "ship": { "type": "boolean" }
+      }
+    },
+    "git": {
+      "type": "object",
+      "properties": {
+        "feature_branch": { "type": ["string", "null"] },
+        "commit_sha": { "type": ["string", "null"] },
+        "commit_message_excerpt": { "type": ["string", "null"] },
+        "pushed": { "type": "boolean" },
+        "push_remote": { "type": ["string", "null"] },
+        "push_sha": { "type": ["string", "null"] }
+      }
+    },
     "workflow_stage": { "type": "integer", "minimum": 0, "maximum": 9 },
     "ticket": {
       "type": "object",

@@ -2,9 +2,11 @@
   "product": "sree-develop",
   "version": 1,
   "scripts": {
-    "lib/process_compliance.py": "a4b19ca0d790792ce153822c6f86332fd8bde4bbe66b1edf0934c021cb63945d",
+    "lib/evidence_io.py": "63067df412d87b8782af793780c906ffe102a9140efa67a0a69bb1c01732d532",
+    "lib/process_compliance.py": "14cbbadaf02e19901d105441122014f04516f5ee3180a476480b714658fb4443",
+    "record_git_ship.py": "a9545649858b4c834ebdfc653e8ae12e0abff579a16f142ce21fc53968824009",
     "resolve_sree_scripts.py": "1fcdd9700b99fd8edcf54b09d85a763cdb1580a235b0931f9e85c97560e09e56",
-    "sree_session_start.py": "c8dea77893db148b3f5ab0cdd447fe6ff2254fd499cbaf6178d1a28a07922661",
-    "validate_evidence.py": "d5a35fe1ee8ab8b53d2f907355b523cdd7e6922d85b3ecf5a71abce556f35808"
+    "sree_session_start.py": "ee233b7789488f04c5a655b446a0c4a4afde58619f0230f237f426df8ac7d6d9",
+    "validate_evidence.py": "a0a7b3ed283cfc01374f4cb0c7e308f73147c7e5abb1db17b47d05c7c3eb224b"
   }
 }

@@ -22,6 +22,11 @@ def main() -> None:
         help="Evidence JSON path relative to repo or absolute",
     )
     parser.add_argument("--json", action="store_true", help="Print JSON result")
+    parser.add_argument(
+        "--require-ship",
+        action="store_true",
+        help="When intent.ship is true, require git commit + push recorded",
+    )
     args = parser.parse_args()
 
     scripts_dir = pc.resolve_scripts_dir()
@@ -55,6 +60,14 @@ def main() -> None:
 
     if data.get("status") == "complete":
         errors.append("layer1_cannot_be_complete_yet")
+
+    intent = data.get("intent") if isinstance(data.get("intent"), dict) else {}
+    git_info = data.get("git") if isinstance(data.get("git"), dict) else {}
+    if args.require_ship and intent.get("ship"):
+        if not git_info.get("commit_sha"):
+            errors.append("ship_requires:git.commit_sha")
+        if not git_info.get("pushed"):
+            errors.append("ship_requires:git.pushed")
 
     payload = {
         "status": "ok" if not errors else "invalid",

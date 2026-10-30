@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lib import process_compliance as pc  # noqa: E402
 
 EVIDENCE_REL = ".cursor/sree-develop-evidence.json"
-SKILL_VERSION = "0.2.0-layer1"
+SKILL_VERSION = "0.3.0-ship"
 
 
 def now_iso() -> str:
@@ -39,6 +39,8 @@ def main() -> None:
 
     repo_root = Path(args.repo).expanduser().resolve()
     ticket = (args.ticket or pc.parse_ticket_key(args.text) or "").upper()
+    ship_intent = pc.parse_ship_intent(args.text)
+    ship_profile = "full" if ship_intent else "implement_only"
 
     evidence_path = repo_root / EVIDENCE_REL
     evidence_path.parent.mkdir(parents=True, exist_ok=True)
@@ -48,9 +50,17 @@ def main() -> None:
         "schema_version": "1.0",
         "product": "sree-develop",
         "status": "partial",
-        "ship_profile": "full",
+        "ship_profile": ship_profile,
         "execution_mode": "guided",
+        "intent": {"ship": ship_intent},
         "ticket": {"key": ticket or None, "summary": None},
+        "git": {
+            "feature_branch": None,
+            "commit_sha": None,
+            "commit_message_excerpt": None,
+            "pushed": False,
+            "push_remote": None,
+        },
         "process": {
             "session_started": now_iso(),
             "skill_version": SKILL_VERSION,
@@ -68,6 +78,8 @@ def main() -> None:
         "gate": "session_started",
         "evidence_path": str(evidence_path),
         "ticket_key": ticket or None,
+        "ship_intent": ship_intent,
+        "ship_profile": ship_profile,
         "manifest_ok": manifest_ok,
     }
     if args.json:

@@ -3,25 +3,34 @@ name: sree-develop
 description: >-
   End-to-end Sree develop flow: fetch a Jira ticket via Atlassian MCP,
   implement the work against acceptance criteria, then commit and push
-  to GitHub. Use when the user says Sree-develop, /sree-develop, or asks
-  to implement a Jira ticket and push the changes.
+  to GitHub. Use when the user says Sree-develop, /sree-develop, Sree-develop
+  TICKET-123 Ship, or asks to implement a Jira ticket and push the changes.
 ---
 
 # Sree-develop
 
-Implement a Jira ticket in the current repo, then commit and push to GitHub.
+Implement a Jira ticket in the current repo. When the user includes **`Ship`** in the prompt (e.g. `Sree-develop AOS-5342 Ship`), you **must** commit and push to GitHub after implementation and record both in evidence gates.
 
-## Layer 1 — mandatory first commands
+Full flow: `docs/IMPLEMENTATION.md`.
 
-Run from the **product repo root** before Jira fetch or edits:
+## Ship keyword
+
+| Prompt | `ship_profile` | Commit / push |
+|--------|----------------|---------------|
+| `Sree-develop AOS-5342` | `implement_only` | Only if user asks |
+| `Sree-develop AOS-5342 Ship` | `full` | **Required** + evidence gates |
+
+## Mandatory gates (product repo root)
+
+Before Jira fetch or edits:
 
 ```powershell
 python skills/sree-develop/scripts/resolve_sree_scripts.py --json
-python skills/sree-develop/scripts/sree_session_start.py --init --text "<user prompt>" --json
+python skills/sree-develop/scripts/sree_session_start.py --init --text "<full user prompt>" --json
 python skills/sree-develop/scripts/validate_evidence.py --json
 ```
 
-If `resolve_sree_scripts` returns `"blocked": "toolchain"`, stop (read-only only). See `references/toolchain-layer1.md` and `references/evidence-bundle.md`.
+If `resolve_sree_scripts` returns `"blocked": "toolchain"`, stop (read-only only). See `references/toolchain-layer1.md` and `docs/IMPLEMENTATION.md`.
 
 ## Required input
 
@@ -83,13 +92,33 @@ Example: `feat(auth): add login rate limit`
 
 4. Use a HEREDOC (or PowerShell here-string) for the message. Do not use `--no-verify` or amend unless the user explicitly asks and amend rules allow it.
 5. Run `git status` after commit to verify.
+6. **Gate (always after commit):**
+
+```powershell
+python skills/sree-develop/scripts/record_git_ship.py record-commit --message "<first line>" --json
+```
 
 ### 4. Push to GitHub
+
+When **`Ship`** was in the prompt (or user asked to push):
 
 1. Confirm remote is GitHub (`git remote -v`). If no remote / not GitHub, stop and tell the user.
 2. Push the current branch: `git push -u origin HEAD` (first push) or `git push`.
 3. Never force-push to `main`/`master`. Never `push --force` unless the user explicitly requests it.
-4. Reply with: issue key, branch name, commit SHA, and PR URL if `gh pr create` was requested (do not open a PR unless asked).
+4. **Gate (after successful push):**
+
+```powershell
+python skills/sree-develop/scripts/record_git_ship.py record-push --json
+```
+
+5. If **`Ship`** intent: validate delivery:
+
+```powershell
+python skills/sree-develop/scripts/validate_evidence.py --require-ship --json
+python skills/sree-develop/scripts/record_git_ship.py check-ship --json
+```
+
+6. Reply with: issue key, branch name, commit SHA, and PR URL if `gh pr create` was requested (do not open a PR unless asked).
 
 ## Done checklist
 
@@ -106,3 +135,4 @@ Reply with:
 - Invent ticket requirements when Jira is unreachable — stop and report auth/API errors.
 - Commit unrelated dirty files from the working tree.
 - Push if commit failed or hooks rejected the commit (fix, then new commit).
+- Claim **Ship** complete without `validate_evidence.py --require-ship` passing.

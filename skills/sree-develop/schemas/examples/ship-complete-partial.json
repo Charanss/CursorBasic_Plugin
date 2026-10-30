@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "product": "sree-develop",
+  "status": "partial",
+  "ship_profile": "full",
+  "execution_mode": "guided",
+  "intent": { "ship": true },
+  "workflow_stage": 4,
+  "ticket": { "key": "AOS-5342", "summary": "Add login button" },
+  "git": {
+    "feature_branch": "feature/aos-5342",
+    "commit_sha": "abc123def456",
+    "commit_message_excerpt": "AOS-5342 Add login button to home",
+    "pushed": true,
+    "push_remote": "origin",
+    "push_sha": "abc123def456"
+  },
+  "process": {
+    "session_started": "2026-10-30T18:30:00Z",
+    "skill_version": "0.3.0-ship",
+    "script_manifest_ok": true,
+    "prompt_excerpt": "Sree-develop AOS-5342 Ship"
+  }
+}
