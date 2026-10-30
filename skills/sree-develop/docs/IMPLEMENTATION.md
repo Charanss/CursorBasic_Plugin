@@ -135,6 +135,23 @@ Commit the updated `manifest.json` or gates will fail with hash mismatch.
 
 ---
 
+## Cursor hooks (automatic)
+
+**Gates** run when the agent executes Python. **Hooks** run when **Cursor** sends a prompt or ends a turn (plugin must be installed).
+
+| Hook | When | What it does |
+|------|------|----------------|
+| `beforeSubmitPrompt` | You press Send on a message containing `Sree-develop` | Blocks send if gate **toolchain** is broken (bad/missing manifest) |
+| `stop` | Agent finishes a turn | If evidence says **Ship** but `git.pushed` is false, auto-sends a **follow-up** reminder (max 2 loops) |
+
+Files: `hooks/hooks.json`, `hooks/before_submit_sree.py`, `hooks/stop_ship_check.py`
+
+Reload Cursor after plugin update. Check **Settings → Hooks** (or Hooks output channel) if they do not fire.
+
+**Note:** Hooks do not replace gate scripts — they add automatic checks around prompt submit and stop.
+
+---
+
 ## Related docs
 
 - `references/toolchain-layer1.md` — script lookup order

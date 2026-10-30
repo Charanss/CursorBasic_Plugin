@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [
+      {
+        "command": "python \"${CURSOR_PLUGIN_ROOT}/hooks/before_submit_sree.py\"",
+        "matcher": "UserPromptSubmit"
+      }
+    ],
+    "stop": [
+      {
+        "command": "python \"${CURSOR_PLUGIN_ROOT}/hooks/stop_ship_check.py\"",
+        "loop_limit": 2
+      }
+    ]
+  }
+}
