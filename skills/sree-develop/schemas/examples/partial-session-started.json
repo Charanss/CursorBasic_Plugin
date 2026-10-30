@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "product": "sree-develop",
+  "status": "partial",
+  "ship_profile": "full",
+  "execution_mode": "guided",
+  "workflow_stage": 0,
+  "ticket": { "key": "SCRUM-5", "summary": null },
+  "process": {
+    "session_started": "2026-10-30T18:30:00Z",
+    "skill_version": "0.2.0-layer1",
+    "script_manifest_ok": true,
+    "scripts_dir": "/path/to/scripts",
+    "prompt_excerpt": "/sree-develop SCRUM-5"
+  }
+}

@@ -11,6 +11,18 @@ description: >-
 
 Implement a Jira ticket in the current repo, then commit and push to GitHub.
 
+## Layer 1 — mandatory first commands
+
+Run from the **product repo root** before Jira fetch or edits:
+
+```powershell
+python skills/sree-develop/scripts/resolve_sree_scripts.py --json
+python skills/sree-develop/scripts/sree_session_start.py --init --text "<user prompt>" --json
+python skills/sree-develop/scripts/validate_evidence.py --json
+```
+
+If `resolve_sree_scripts` returns `"blocked": "toolchain"`, stop (read-only only). See `references/toolchain-layer1.md` and `references/evidence-bundle.md`.
+
 ## Required input
 
 - Jira issue key (e.g. `SCRUM-5`). Ask if missing.
@@ -18,6 +30,10 @@ Implement a Jira ticket in the current repo, then commit and push to GitHub.
 Optional: target branch name (default: current branch, or create `feature/<issue-key-lowercase>` if user asks for a new branch).
 
 ## Workflow
+
+### 0. Session evidence
+
+Evidence file: `.cursor/sree-develop-evidence.json` (local only, never commit). Status stays **`partial`** until a future closeout layer sets **`complete`**.
 
 ### 1. Fetch the ticket
 

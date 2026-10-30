@@ -18,3 +18,13 @@ Local Cursor plugin that connects to the Atlassian Rovo MCP server and includes 
 - `skills/fetch-jira-ticket` — summarize existing tickets
 - `skills/create-jira-ticket` — create tickets with acceptance criteria
 - `skills/sree-develop` — fetch ticket → implement → commit → push to GitHub
+  - **Layer 1:** evidence file + gate scripts under `skills/sree-develop/scripts/` (see `references/toolchain-layer1.md`)
+
+### Try layer 1 (in any git repo checkout)
+
+```powershell
+cd C:\path\to\your-product-repo
+python path\to\skills\sree-develop\scripts\resolve_sree_scripts.py --json
+python path\to\skills\sree-develop\scripts\sree_session_start.py --init --text "/sree-develop PROJ-1" --json
+python path\to\skills\sree-develop\scripts\validate_evidence.py --json
+```

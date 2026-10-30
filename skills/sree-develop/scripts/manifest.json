@@ -1,0 +1,10 @@
+{
+  "product": "sree-develop",
+  "version": 1,
+  "scripts": {
+    "lib/process_compliance.py": "a4b19ca0d790792ce153822c6f86332fd8bde4bbe66b1edf0934c021cb63945d",
+    "resolve_sree_scripts.py": "1fcdd9700b99fd8edcf54b09d85a763cdb1580a235b0931f9e85c97560e09e56",
+    "sree_session_start.py": "c8dea77893db148b3f5ab0cdd447fe6ff2254fd499cbaf6178d1a28a07922661",
+    "validate_evidence.py": "d5a35fe1ee8ab8b53d2f907355b523cdd7e6922d85b3ecf5a71abce556f35808"
+  }
+}

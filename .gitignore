@@ -7,3 +7,10 @@ Thumbs.db
 .env.*
 *.pem
 credentials*
+
+# Local session evidence (product repos; safe if present here during tests)
+.cursor/sree-develop-evidence.json
+
+# Python
+__pycache__/
+*.pyc
