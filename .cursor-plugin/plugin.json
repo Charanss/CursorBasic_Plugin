@@ -1,6 +1,6 @@
 {
-  "name": "jira-ticket-details",
-  "description": "Atlassian MCP plus Sree-develop skills, gates, and Cursor hooks",
+  "name": "my-plugins",
+  "description": "Charan's Cursor plugins: Atlassian MCP, Jira skills, and Sree-develop SDLC gates",
   "version": "1.1.0",
-  "author": { "name": "Local" }
+  "author": { "name": "Charan SS" }
 }
